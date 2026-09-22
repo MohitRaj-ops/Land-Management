@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ land.land_id }}</h2>
+<div class="card">
+<p><b>Location:</b> {{ land.village }}, {{ land.district }}, {{ land.state }}</p>
+<p><b>Survey:</b> {{ land.survey_no }}</p>
+<p><b>Owner:</b> {{ land.owner_name }}</p>
+<p><b>Status:</b> {{ land.land_status }}</p>
+<p><b>Ownership verification:</b> {{ land.ownership_verification }}</p>
+<p><b>Risk:</b> <span class="risk {{ risk|lower }}">{{ risk }}</span></p>
+</div>
+
+{% if session.get('role') in ['COURT','GOVT'] %}
+<a class="button" href="{{ url_for('add_case', land_id=land.land_id) }}">Add Court Case</a>
+{% endif %}
+{% if session.get('role') in ['POLICE','GOVT'] %}
+<a class="button" href="{{ url_for('add_complaint', land_id=land.land_id) }}">Add Police Complaint</a>
+{% endif %}
+{% if session.get('role') == 'GOVT' %}
+<a class="button" href="{{ url_for('add_acquisition', land_id=land.land_id) }}">Add Acquisition Stage</a>
+{% endif %}
+
+<h3>Court Cases</h3>
+{% for c in court %}
+<div class="card"><b>{{ c.case_number }}</b> — {{ c.court_name }} — {{ c.current_status }}
+<p>{{ c.current_proceedings }}</p>{% if c.stay_order %}<b>STAY / ORDER FLAG</b>{% endif %}</div>
+{% else %}<p>No court cases.</p>{% endfor %}
+
+<h3>Police Records</h3>
+{% for p in police %}
+<div class="card"><b>{{ p.complaint_type }}</b> — {{ p.status }} — {{ p.investigating_authority }}
+<p>{{ p.relevant_actions }}</p></div>
+{% else %}<p>No police records.</p>{% endfor %}
+
+<h3>Acquisition</h3>
+{% for a in acquisitions %}
+<div class="card"><b>{{ a.stage }}</b> — {{ a.status }} — delay: {{ a.delay_days }} days
+<p>{{ a.reason_for_delay }}</p><p>Next: {{ a.next_action }} | Deadline: {{ a.deadline }}</p></div>
+{% else %}<p>No acquisition records.</p>{% endfor %}
+
+<h3>Documents</h3>
+{% for d in docs %}
+<div class="card">{{ d.category }} — {{ d.original_name }} — v{{ d.version_no }}
+<a href="{{ url_for('document_file', name=d.stored_name) }}">View</a></div>
+{% else %}<p>No documents.</p>{% endfor %}
+{% if session.get('role') in ['COURT','POLICE','GOVT'] %}
+<form method="post" enctype="multipart/form-data" action="{{ url_for('upload_document', land_id=land.land_id) }}" class="card form">
+<label>Category<input name="category" required></label>
+<label>Document<input type="file" name="document" required></label>
+<label><input type="checkbox" name="public_visible"> Publicly visible</label>
+<button>Upload</button>
+</form>
+{% endif %}
+
+<h3>Timeline</h3>
+{% for t in timeline %}
+<div class="timeline"><b>{{ t.event_date }}</b> — {{ t.source }} — {{ t.title }}<br>{{ t.description }}</div>
+{% else %}<p>No timeline events.</p>{% endfor %}
+{% endblock %}

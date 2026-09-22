@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="grid">
+{% for key,value in stats.items() %}
+<div class="card"><small>{{ key|replace('_',' ')|title }}</small><strong>{{ value }}</strong></div>
+{% endfor %}
+</div>
+<h3>Quick actions</h3>
+<a class="button" href="{{ url_for('lands') }}">Search lands</a>
+{% if session.get('role') in ['GOVT','COURT','POLICE'] %}
+<a class="button" href="{{ url_for('add_land') }}">Add land</a>
+{% endif %}
+{% endblock %}

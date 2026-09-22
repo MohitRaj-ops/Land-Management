@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Police Complaint — {{ land.land_id }}</h2>
+<form method="post" class="card form">
+<label>Complaint Type<input name="complaint_type" required></label>
+<label>Complaint Date<input type="date" name="complaint_date"></label>
+<label>Status<input name="status"></label>
+<label>Investigating Authority<input name="investigating_authority"></label>
+<label>Date Opened<input type="date" name="date_opened"></label>
+<label>Date Closed<input type="date" name="date_closed"></label>
+<label>Relevant Actions<textarea name="relevant_actions"></textarea></label>
+<label>Public Status<input name="public_status"></label>
+<label><input type="checkbox" name="public_visible"> Publicly disclosable</label>
+<label>Confidential Details<textarea name="confidential_details"></textarea></label>
+<button>Save Complaint</button>
+</form>
+{% endblock %}

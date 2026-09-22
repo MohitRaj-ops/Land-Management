@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Public Land Profile — {{ land.land_id }}</h2>
+<div class="card">
+<p><b>Location:</b> {{ land.village }}, {{ land.district }}, {{ land.state }}</p>
+<p><b>Survey/Khasra:</b> {{ land.survey_no }}</p>
+<p><b>Acquisition:</b> {{ land.land_status }}</p>
+<p><b>Ownership verification:</b> {{ land.ownership_verification }}</p>
+<p><b>Risk:</b> <span class="risk {{ risk|lower }}">{{ risk }}</span></p>
+<p><b>Summary:</b> {{ summary }}</p>
+{% if land.public_warning %}<p><b>Warning:</b> {{ land.public_warning }}</p>{% endif %}
+<p><small>This is decision-support information, not a legal guarantee.</small></p>
+</div>
+
+<h3>Public Court Information</h3>
+{% for c in court %}
+<div class="card">
+<b>{{ c.case_number }}</b> — {{ c.court_name }} — {{ c.current_status }}
+<p>{{ c.dispute_type }}</p>
+{% if c.stay_order %}<b>Important court order/stay recorded.</b>{% endif %}
+<p>{{ c.public_summary }}</p>
+</div>
+{% else %}<p>No public court case information found.</p>{% endfor %}
+
+<h3>Public Police/Dispute Information</h3>
+{% for p in police %}
+<div class="card">{{ p.complaint_type }} — {{ p.status }}<br>{{ p.public_status }}</div>
+{% else %}<p>No publicly disclosable police issue found.</p>{% endfor %}
+
+<h3>Acquisition Information</h3>
+{% for a in acq %}
+<div class="card"><b>{{ a.stage }}</b> — {{ a.status }}
+<p>Authority: {{ a.responsible_authority }}</p>
+<p>Delay: {{ a.delay_days }} days</p>
+<p>Next action: {{ a.next_action }}</p>
+<p>Deadline: {{ a.deadline }}</p>
+</div>
+{% else %}<p>No acquisition records found.</p>{% endfor %}
+{% endblock %}

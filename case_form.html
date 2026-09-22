@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Register Court Case — {{ land.land_id }}</h2>
+<form method="post" class="card form">
+<label>Case Number<input name="case_number" required></label>
+<label>Court Name<input name="court_name"></label>
+<label>Parties<textarea name="parties"></textarea></label>
+<label>Filing Date<input type="date" name="filing_date"></label>
+<label>Case Type<input name="case_type"></label>
+<label>Current Status<input name="current_status"></label>
+<label>Current Proceedings<textarea name="current_proceedings"></textarea></label>
+<label>Next Hearing<input type="date" name="next_hearing_date"></label>
+<label>Case Outcome<textarea name="case_outcome"></textarea></label>
+<label>Dispute Type<input name="dispute_type"></label>
+<label><input type="checkbox" name="stay_order"> Stay/order affects land</label>
+<label>Public Summary<textarea name="public_summary"></textarea></label>
+<button>Save Case</button>
+</form>
+{% endblock %}

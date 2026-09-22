@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Initial Administrator Setup</h2>
+<form method="post" class="card form">
+<label>Full name<input name="full_name" required></label>
+<label>Username<input name="username" required></label>
+<label>Password<input type="password" name="password" minlength="8" required></label>
+<button>Create Government Admin</button>
+</form>
+{% endblock %}

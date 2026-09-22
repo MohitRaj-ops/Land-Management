@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+<h1>Land & Acquisition Management System</h1>
+<p>Central land identification with separate Court, Police and Government access plus a filtered public due-diligence portal.</p>
+<a class="button" href="{{ url_for('public_search') }}">Search Land</a>
+<a class="button secondary" href="{{ url_for('login') }}">Official Portal</a>
+</section>
+{% endblock %}

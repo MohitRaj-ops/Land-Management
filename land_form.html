@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Land</h2>
+<form method="post" class="card form">
+{% for field,label in [
+('land_id','Land ID'),('survey_no','Survey/Khasra Number'),('owner_name','Registered Owner'),
+('village','Village'),('district','District'),('state','State'),('latitude','Latitude'),
+('longitude','Longitude'),('acquisition_authority','Acquisition Authority'),
+('acquisition_notification_date','Acquisition Notification Date'),
+('compensation_status','Compensation Status'),('responsible_department','Responsible Department')
+] %}
+<label>{{ label }}<input name="{{ field }}" {% if field in ['acquisition_notification_date'] %}type="date"{% endif %}></label>
+{% endfor %}
+<label>Land Status<select name="land_status">
+{% for x in ['AVAILABLE','UNDER_ACQUISITION','DISPUTED','COURT_CASE','POLICE_ACTION','ACQUIRED','ACQUISITION_COMPLETED'] %}
+<option>{{ x }}</option>{% endfor %}</select></label>
+<label>Ownership Verification<select name="ownership_verification">
+<option>PENDING</option><option>VERIFIED</option><option>DISPUTED</option><option>FLAGGED</option>
+</select></label>
+<label>Public Warning<textarea name="public_warning"></textarea></label>
+<button>Create Land</button>
+</form>
+{% endblock %}

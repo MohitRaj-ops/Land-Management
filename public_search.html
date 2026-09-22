@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Public Land Due-Diligence Search</h2>
+<form class="search"><input name="q" value="{{ q }}" placeholder="Land ID, survey no, village or district"><button>Search</button></form>
+<table>
+<tr><th>Land ID</th><th>Location</th><th>Status</th><th>Verification</th></tr>
+{% for l in lands %}
+<tr>
+<td><a href="{{ url_for('public_land', land_id=l.land_id) }}">{{ l.land_id }}</a></td>
+<td>{{ l.village }}, {{ l.district }}, {{ l.state }}</td>
+<td>{{ l.land_status }}</td><td>{{ l.ownership_verification }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Acquisition Stage — {{ land.land_id }}</h2>
+<form method="post" class="card form">
+<label>Stage<select name="stage">
+{% for x in ['LAND_IDENTIFIED','ACQUISITION_PROPOSAL','PRELIMINARY_NOTIFICATION','OBJECTIONS','OBJECTIONS_REVIEW','COMPENSATION_ASSESSMENT','LEGAL_ACTION','COURT_DECISION','ACTION_TAKEN','COMPENSATION','LAND_ACQUIRED','ACQUISITION_COMPLETED'] %}
+<option>{{ x }}</option>{% endfor %}
+</select></label>
+<label>Start Date<input type="date" name="start_date"></label>
+<label>Completion Date<input type="date" name="completion_date"></label>
+<label>Responsible Authority<input name="responsible_authority"></label>
+<label>Status<input name="status"></label>
+<label>Delay Days<input type="number" name="delay_days" value="0" min="0"></label>
+<label>Reason for Delay<textarea name="reason_for_delay"></textarea></label>
+<label>Next Required Action<textarea name="next_action"></textarea></label>
+<label>Deadline<input type="date" name="deadline"></label>
+<label>Document Notes<textarea name="document_notes"></textarea></label>
+<button>Save Stage</button>
+</form>
+{% endblock %}
